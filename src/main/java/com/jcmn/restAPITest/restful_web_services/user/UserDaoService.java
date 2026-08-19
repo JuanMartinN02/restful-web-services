@@ -5,10 +5,14 @@ package com.jcmn.restAPITest.restful_web_services.user;
 // technology (such as MySQL, PostgreSQL, or NoSQL), ensuring that changing your database setup will not
 //disrupt the rest of your system.
 
+import org.springframework.web.bind.annotation.RestController;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
+@RestController
 public class UserDaoService {
     // JPA/Hibernate > Database
     // UserDaoService > Static List
@@ -24,6 +28,11 @@ public class UserDaoService {
 
     public List<User> findAll() {
         return users;
+    }
+
+    public User findOne(int id){
+        Predicate<? super User> predicate = user -> user.getId().equals(id);
+        return  users.stream().filter(predicate).findFirst().get();
     }
 
 }
