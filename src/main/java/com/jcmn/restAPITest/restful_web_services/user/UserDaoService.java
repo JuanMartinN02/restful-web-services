@@ -33,6 +33,7 @@ public class UserDaoService {
     }
 
     public User findOne(int id){
+        // Used as a filter in Streams
         Predicate<? super User> predicate = user -> user.getId().equals(id);
         return  users.stream().filter(predicate).findFirst().orElse(null);
     }
@@ -41,6 +42,12 @@ public class UserDaoService {
         user.setId(++userIdCount);
         users.add(user);
         return user;
+    }
+
+    public void  deleteById(int id){
+        // Used as a filter in Streams
+        Predicate<? super User> predicate = user -> user.getId().equals(id);
+        users.removeIf(predicate);
     }
 
 }
