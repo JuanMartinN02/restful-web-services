@@ -28,4 +28,10 @@ public class HelloWorldController {
         return new HelloWorldBean(String.format("Hello %s", name));
     }
 
+    // /hello-world returns "Hello World" INTERNATIONALIZED
+//    @GetMapping(path = "/hello-world-internationalized")
+//    public String helloWorldInternationalized(){
+//        return "Hello World";
+//    }
+
 }
