@@ -6,6 +6,28 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class personVersions {
 
+    // Spring Versioning (path)
+    @GetMapping(value = "/{version}/personbi", version = "1.0.0")
+    public Person1 getFirstVersion(){
+        return (new Person1("Jose Alvarez"));
+    }
+
+    @GetMapping(value = "/{version}/personbi", version = "2.0.0")
+    public Person2 getSecondVersion(){
+        return (new Person2("Jose", "Alvarez"));
+    }
+
+    // Spring Versioning (parameter) USE THIS
+    @GetMapping(value = "/personbi", version = "1.0.0")
+    public Person1 getFirstVersionParam(){
+        return (new Person1("Jose Alvarez"));
+    }
+
+    @GetMapping(value = "/personbi", version = "2.0.0")
+    public Person2 getSecondVersionParam(){
+        return (new Person2("Jose", "Alvarez"));
+    }
+
     // URI Versioning (Twitter)
 
     @GetMapping("/v1/person")
