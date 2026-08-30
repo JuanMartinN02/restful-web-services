@@ -1,5 +1,6 @@
 package com.jcmn.restAPITest.restful_web_services.user;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 
@@ -10,9 +11,11 @@ public class User {
 
     // Validations implemented (@Validate)
     @Size(min = 2, message = "Name must be at least 2 characters long")
+    @JsonProperty("user_name")
     private String name;
 
     @Past(message = "Birth date must be in the past")
+    @JsonProperty("birth_date")
     private LocalDate birthDate;
 
     public User(Integer id, String name, LocalDate birthDate) {
