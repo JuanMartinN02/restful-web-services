@@ -1,16 +1,21 @@
 package com.jcmn.restAPITest.restful_web_services.filtering;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
 
 public class SomeBean {
 
+    //Filtering with views implemented
+
+    @JsonView(View.view1.class)
     private String field1;
 
-
+    @JsonView(View.view2.class)
     private String field2;
 
     // Static filtering (For example for passwords)
-    @JsonIgnore
+    // @JsonIgnore
+    @JsonView({View.view1.class, View.view2.class})
     private String field3;
 
 
