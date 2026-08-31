@@ -12,12 +12,9 @@ import java.util.Optional;
 @RestController
 public class UserJPAResource {
 
-    private UserDaoService service;
-
     private UserRepository repository;
 
-    public UserJPAResource(UserDaoService service, UserRepository repository) {
-        this.service = service;
+    public UserJPAResource(UserRepository repository) {
         this.repository = repository;
     }
 
