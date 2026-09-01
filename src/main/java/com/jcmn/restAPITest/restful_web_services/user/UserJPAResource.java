@@ -14,8 +14,11 @@ public class UserJPAResource {
 
     private UserRepository repository;
 
-    public UserJPAResource(UserRepository repository) {
+    private PostRepository postRepository;
+
+    public UserJPAResource(UserRepository repository, PostRepository postRepository) {
         this.repository = repository;
+        this.postRepository = postRepository;
     }
 
     // GET /users
@@ -66,6 +69,28 @@ public class UserJPAResource {
         }
 
         return foundUser.get().getPosts();
+    }
+
+    // POST /users/{uid}/post
+    @PostMapping("/jpa/users/{id}/posts")
+    public ResponseEntity<Post> createPost(@PathVariable int id, @Valid @RequestBody Post post){
+        Optional<User> foundUser = repository.findById(id);
+
+        if (foundUser.isEmpty()){
+            throw new UserNotFoundException("id: " + id);
+        }
+
+        post.setUser(foundUser.get());
+
+        Post savedPost = postRepository.save(post);
+
+        // /users/4 => /jpa/users/{uid}/posts, user.getID
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(savedPost.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
     }
 
 
